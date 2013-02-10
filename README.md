@@ -1,5 +1,5 @@
 store-titles
-------------
+============
 
 ### Description
 Store module that allows players to buy custom titles in the store. Titles are chat tags that are added to your name when you send a chat message.
