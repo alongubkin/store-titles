@@ -19,6 +19,7 @@ new g_titleCount = 0;
 new g_clientTitles[MAXPLAYERS+1];
 
 new Handle:g_titlesNameIndex = INVALID_HANDLE;
+new bool:g_databaseInitialized = false;
 
 public Plugin:myinfo =
 {
@@ -51,6 +52,11 @@ public OnLibraryAdded(const String:name[])
 	}	
 }
 
+public Store_OnDatabaseInitialized()
+{
+	g_databaseInitialized = true;
+}
+
 /**
  * Called once a client is authorized and fully in-game, and 
  * after all post-connection authorizations have been performed.  
@@ -63,6 +69,9 @@ public OnLibraryAdded(const String:name[])
  */
 public OnClientPostAdminCheck(client)
 {
+	if (!g_databaseInitialized)
+		return;
+		
 	g_clientTitles[client] = -1;
 	Store_GetEquippedItemsByType(Store_GetClientAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
 }
