@@ -43,7 +43,7 @@
 			"file": "scripting/store-titles.sp",
 			"settings":
 			{
-				"buffer_size": 4299,
+				"buffer_size": 4297,
 				"line_ending": "Windows"
 			}
 		}
@@ -309,15 +309,15 @@
 					"file": "scripting/store-titles.sp",
 					"settings":
 					{
-						"buffer_size": 4299,
+						"buffer_size": 4297,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								112,
-								112
+								502,
+								502
 							]
 						],
 						"settings":
@@ -326,7 +326,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
