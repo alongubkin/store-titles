@@ -71,7 +71,10 @@ public OnClientPostAdminCheck(client)
 {
 	if (!g_databaseInitialized)
 		return;
-		
+	
+	if (IsFakeClient(client))
+		return;
+
 	g_clientTitles[client] = -1;
 	Store_GetEquippedItemsByType(Store_GetClientAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
 }
