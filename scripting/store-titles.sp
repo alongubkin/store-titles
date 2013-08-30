@@ -76,13 +76,13 @@ public OnClientPostAdminCheck(client)
 		return;
 
 	g_clientTitles[client] = -1;
-	Store_GetEquippedItemsByType(Store_GetClientAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
+	Store_GetEquippedItemsByType(GetSteamAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
 }
 
 public Store_OnClientLoadoutChanged(client)
 {
 	g_clientTitles[client] = -1;
-	Store_GetEquippedItemsByType(Store_GetClientAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
+	Store_GetEquippedItemsByType(GetSteamAccountID(client), "title", Store_GetClientLoadout(client), OnGetPlayerTitle, GetClientSerial(client));
 }
 
 public Store_OnReloadItems() 
