@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <store>
 #include <scp>
-#include <smjansson>
+#include <EasyJSON>
 #include <colors>
 #include <morecolors_store>
 
@@ -26,7 +26,7 @@ public Plugin:myinfo =
 	name        = "[Store] Titles",
 	author      = "alongub",
 	description = "Titles component for [Store]",
-	version     = "1.1-alpha",
+	version     = STORE_VERSION,
 	url         = "https://github.com/alongubkin/store"
 };
 
@@ -124,22 +124,25 @@ public LoadItem(const String:itemName[], const String:attrs[])
 		
 	SetTrieValue(g_titlesNameIndex, g_titles[g_titleCount][TitleName], g_titleCount);
 	
-	new Handle:json = json_load(attrs);	
+	new Handle:json = DecodeJSON(attrs);
 
-	if (IsSource2009())
+	if (JSONGetString(json, "colorful_text", g_titles[g_titleCount][TitleText], 64))
 	{
-		json_object_get_string(json, "colorful_text", g_titles[g_titleCount][TitleText], 64);
 		MoreColors_CReplaceColorCodes(g_titles[g_titleCount][TitleText]);
+	}
+	else if (JSONGetString(json, "text", g_titles[g_titleCount][TitleText], 64))
+	{
+		CFormat(g_titles[g_titleCount][TitleText], 64);
 	}
 	else
 	{
-		json_object_get_string(json, "text", g_titles[g_titleCount][TitleText], 64);
-		CFormat(g_titles[g_titleCount][TitleText], 64);
+		Store_LogError("Item '%s' does not have text or colorful_text attribute");
+		DestroyJSON(json);
+		return;
 	}
-
-	CloseHandle(json);
-
+	
 	g_titleCount++;
+	DestroyJSON(json);
 }
 
 public Store_ItemUseAction:OnEquip(client, itemId, bool:equipped)
@@ -187,9 +190,4 @@ public Action:OnChatMessage(&author, Handle:recipients, String:name[], String:me
 	}
 	
 	return Plugin_Continue;
-}
-
-stock bool:IsSource2009()
-{
-	return (SOURCE_SDK_CSS <= GuessSDKVersion() < SOURCE_SDK_LEFT4DEAD);
 }
