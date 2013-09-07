@@ -4,8 +4,8 @@
 #include <store>
 #include <scp>
 #include <EasyJSON>
-#include <colors>
 #include <morecolors_store>
+#include <colors>
 
 enum Title
 {
